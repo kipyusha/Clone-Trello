@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import { pageSlice, selectPage, useAppDispatch } from "../store/store";
 import Trello from "@/components/Trello";
+import styled from "styled-components";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -25,3 +26,4 @@ export default function Home() {
     </>
   );
 }
+
