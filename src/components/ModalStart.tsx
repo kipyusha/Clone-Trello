@@ -9,20 +9,7 @@ interface ModalProps {
 
 export const ModalStart = ({ visible = false, onClose }: ModalProps) => {
   const [name, setName] = useState("");
-  const onKeydown = ({ key }: KeyboardEvent) => {
-    switch (key) {
-      case "Escape":
-        onClose();
-        break;
-    }
-  };
-
-  React.useEffect(() => {
-    document.addEventListener("keydown", onKeydown);
-    return () => document.removeEventListener("keydown", onKeydown);
-  });
   if (!visible) return null;
-
   return (
     <Container>
       <Modal onClick={onClose}>

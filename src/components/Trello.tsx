@@ -2,13 +2,14 @@ import React from 'react'
 import styled from "styled-components";
 import KanbanBoard from './KanbanBoard';
 
+const initialColumnTitles = {
+    todo: "TODO",
+    inProgress: "In Progress",
+    testing: "Testing",
+    done: "Done",
+  };
+
 const Trello = () => {
-    const initialColumnTitles = {
-        todo: "TODO",
-        inProgress: "In Progress",
-        testing: "Testing",
-        done: "Done",
-      };
   return (
     <Container>
         <Header>
