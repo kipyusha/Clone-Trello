@@ -8,6 +8,7 @@ interface KanbanBoardProps {
 
 const KanbanBoard: React.FC<KanbanBoardProps> = ({ initialColumnTitles }) => {
   const [columnTitles, setColumnTitles] = useState(initialColumnTitles);
+  
 
   const handleTitleChange = (column: string, newTitle: string) => {
     setColumnTitles((prevColumnTitles) => ({

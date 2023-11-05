@@ -7,22 +7,30 @@ interface CardDetailsPopupProps {
   closePopup: () => void;
   column: string;
   title: string;
+  
+  
+  
 }
 
 const CardDetailsPopup: React.FC<CardDetailsPopupProps> = ({
   closePopup,
   column,
   title,
+  
 }) => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState<string[]>([]);
   const author = Cookies.get("userName");
   const [editingDescription, setEditingDescription] = useState(false);
   const [description, setDescription] = useState("Текст...");
- 
-
   
-
+  const onKeydown = ({ key }: KeyboardEvent) => {
+    switch (key) {
+      case "Escape":
+        closePopup();
+        break;
+    }
+  };
   const addComment = () => {
     if (comment && author) {
       const newComment = `${comment}`;
@@ -30,6 +38,7 @@ const CardDetailsPopup: React.FC<CardDetailsPopupProps> = ({
       setComments(updatedComments);
       Cookies.set(`comments_${column}`, JSON.stringify(updatedComments));
       setComment("");
+      
     }
   };
   const editComment = (index: number) => {
@@ -50,17 +59,22 @@ const CardDetailsPopup: React.FC<CardDetailsPopupProps> = ({
 
   const saveDescription = () => {
     setEditingDescription(false);
-    Cookies.set(`description_${column}`, description);
+    const descriptionKey = `description_${column}_`;
+    Cookies.set(descriptionKey, description);
   };
   useEffect(() => {
-    const savedDescription = Cookies.get(`description_${column}`);
+    const descriptionKey = `description_${column}_`;
+    const savedDescription = Cookies.get(descriptionKey);
     const savedComments = Cookies.get(`comments_${column}`);
+    
     if (savedDescription) {
       setDescription(savedDescription);
     }
     if (savedComments) {
       setComments(JSON.parse(savedComments));
     }
+    document.addEventListener("keydown", onKeydown);
+      return () => document.removeEventListener("keydown", onKeydown);
   }, [column]);
   return (
     <Container>
